@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
-    "build-runner.helloWorld",
+    "build-runner.quickly",
     async () => {
       // Display a message box to the user
 
@@ -109,6 +109,7 @@ export function activate(context: vscode.ExtensionContext) {
 
           terminal.sendText(command);
           console.log(command);
+          vscode.window.showInformationMessage(`Running build_runner quickly`);
         }
       }
       /// We've got an array which means everything worked out.
@@ -126,6 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
         /// Attempt to build with filters
         terminal.sendText(command);
         console.log(command);
+        vscode.window.showInformationMessage(`Running build_runner quickly`);
       }
     }
   );

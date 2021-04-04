@@ -17,9 +17,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "build-runner.helloWorld",
+        "command": "build-runner.quickly",
         "title": "build quickly on this file",
         "category": "build_runner"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "build-runner.quickly",
+        "key": "ctrl+alt+b",
+        "mac": "cmd+alt+b"
       }
     ]
   },
