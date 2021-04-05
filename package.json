@@ -4,6 +4,7 @@
   "displayName": "build_runner",
   "repository": "https://github.com/lukepighetti/vscode_fast_build_runner",
   "description": "Run build-runner easily with a keyboard shortcut",
+  "icon": "docs/icon.png",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.55.0"
