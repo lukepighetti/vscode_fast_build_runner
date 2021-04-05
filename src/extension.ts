@@ -1,26 +1,12 @@
 /* eslint-disable curly */
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import { privateEncrypt } from "crypto";
 import * as vscode from "vscode";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "build-runner" is now active!');
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
     "build-runner.quickly",
     async () => {
-      // Display a message box to the user
-
       function _route(): Array<String> | null {
-        // The code you place here will be executed every time your command is executed
+        /// Get the current editor file uri and path
         const uri = vscode.window.activeTextEditor?.document.uri;
         const path = uri?.path;
 
@@ -37,8 +23,6 @@ export function activate(context: vscode.ExtensionContext) {
         const workspaceName = workspaceFolder?.name;
         if (workspaceName === undefined) return [];
 
-        console.log(workspaceName);
-
         /// Guard against no workspace path
         const workspacePath = workspaceFolder?.uri.path;
         if (workspacePath === undefined) [];
@@ -50,8 +34,6 @@ export function activate(context: vscode.ExtensionContext) {
         const hasTopLevelFolder = segments!.length > 1;
         if (!hasTopLevelFolder) return [];
 
-        const topLevelProjectFolder = segments![0];
-        const topLevelFolder = `${workspacePath}/${topLevelProjectFolder}`;
         const segmentsWithoutFilename = [...segments!].slice(
           0,
           segments!.length - 1
