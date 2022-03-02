@@ -15,4 +15,4 @@ jobs:
         with:
           args: "publish minor -p $AZURE_KEY"
         env:
-          VSCE_TOKEN: ${{ secrets.AZURE_KEY }}
+          AZURE_KEY: ${{ secrets.AZURE_KEY }}
