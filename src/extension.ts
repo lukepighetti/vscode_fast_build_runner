@@ -1,5 +1,6 @@
 /* eslint-disable curly */
 import * as vscode from "vscode";
+import {  Configuration, Mappers } from "./configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
@@ -69,6 +70,9 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       const filters = await _route();
+      
+      const commandPrefix = Configuration.commandPrefix();
+      const commandPrefixRaw = Mappers.mapCommandPrefixToRaw(commandPrefix);
 
       /// Null filters because no workspace, let's ask the user to pick a workspace
       /// so we can run build_runner on it
@@ -86,7 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         /// Workspace selected, lets run build_runner on it
         else {
-          const command = `cd ${path} && dart run build_runner build --delete-conflicting-outputs`;
+          const command = `cd ${path} && ${commandPrefixRaw} run build_runner build --delete-conflicting-outputs`;
           const terminal = vscode.window.createTerminal(`build_runner`);
 
           terminal.sendText(command);
@@ -103,8 +107,9 @@ export function activate(context: vscode.ExtensionContext) {
           .join(" ");
 
         const terminal = vscode.window.createTerminal(`build_runner`);
+        
 
-        const command = `dart run build_runner build --delete-conflicting-outputs ${buildFilters}`;
+        const command = `${commandPrefixRaw} run build_runner build --delete-conflicting-outputs ${buildFilters}`;
 
         /// Attempt to build with filters
         terminal.sendText(command);
@@ -118,4 +123,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
