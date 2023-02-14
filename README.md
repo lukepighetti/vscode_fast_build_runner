@@ -7,6 +7,7 @@ Use `command+option+b` or `control+alt+b` to fire off build_runner quickly.
 
 Uses `cd` and `dart` on the command line. Only tested on macOS.
 
+Retrieves framework instance from `dart.flutterSdkPath`.
 <br/>
 <a href="https://twitter.com/luke_pighetti/status/1378837185680539650">
 <img src="docs/tweet.png" width="500"></a>
