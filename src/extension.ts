@@ -1,6 +1,5 @@
 /* eslint-disable curly */
 import * as vscode from "vscode";
-import {  Configuration, Mappers } from "./configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
@@ -70,9 +69,13 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       const filters = await _route();
-      
-      const commandPrefix = Configuration.commandPrefix();
-      const commandPrefixRaw = Mappers.mapCommandPrefixToRaw(commandPrefix);
+      /// get dart configuration
+      const config =  vscode.workspace.getConfiguration('dart');
+      /// get chosen workspace SDK path
+      const flutterSdkPath = config.get('flutterSdkPath');
+      /// generate path
+      const commandPrefix =
+          flutterSdkPath == null ? `dart` : `${flutterSdkPath}/bin/dart`;
 
       /// Null filters because no workspace, let's ask the user to pick a workspace
       /// so we can run build_runner on it
@@ -90,7 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         /// Workspace selected, lets run build_runner on it
         else {
-          const command = `cd ${path} && ${commandPrefixRaw} run build_runner build --delete-conflicting-outputs`;
+          const command = `cd ${path} && ${commandPrefix} run build_runner build --delete-conflicting-outputs`;
           const terminal = vscode.window.createTerminal(`build_runner`);
 
           terminal.sendText(command);
@@ -107,9 +110,9 @@ export function activate(context: vscode.ExtensionContext) {
           .join(" ");
 
         const terminal = vscode.window.createTerminal(`build_runner`);
-        
 
-        const command = `${commandPrefixRaw} run build_runner build --delete-conflicting-outputs ${buildFilters}`;
+
+        const command = `${commandPrefix} run build_runner build --delete-conflicting-outputs ${buildFilters}`;
 
         /// Attempt to build with filters
         terminal.sendText(command);

@@ -31,21 +31,7 @@
         "key": "ctrl+alt+b",
         "mac": "cmd+alt+b"
       }
-    ],
-    "configuration": {
-      "title": "build-runner extension settings",
-      "properties": {
-        "build-runner.commandPrefix": {
-          "type": "string",
-          "enum": [
-            "dart",
-            "fvm dart"
-          ],
-          "default": "dart",
-          "description": "If you use fvm select 'fvm dart', otherwise select 'dart'"
-        }
-      }
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
